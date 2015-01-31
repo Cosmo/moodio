@@ -1,0 +1,153 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <title>moodio</title>
+    <script type="text/javascript" charset="utf-8" src="jquery.js"></script>
+    <script type="text/javascript" charset="utf-8" src="jquery.animate-colors.js"></script>
+    <script type="text/javascript" charset="utf-8">
+      $(function() {
+        var colors = {
+          0: { primary: "black",    ambient: "black",  transition: 1, processed: false },
+          1: { primary: "pink", ambient: "blue", transition: 0, processed: false }, //  Twinkel - niederschwellig
+          2: { primary: "pink", ambient: "blue", transition: 0, processed: false },
+          3: { primary: "pink", ambient: "blue", transition: 1, processed: false },
+          4: { primary: "blue", ambient: "purple", transition: 0, processed: false }, 
+          5: { primary: "blue", ambient: "purple", transition: 0, processed: false },
+          6: { primary: "blue", ambient: "purple", transition: 0, processed: false },
+          7: { primary: "pink", ambient: "blue",  transition: 1, processed: false },
+          8: { primary: "pink", ambient: "blue", transition: 0, processed: false }, 
+          9: { primary: "pink", ambient: "blue", transition: 0, processed: false },
+          10: { primary: "blue", ambient: "purple", transition: 0, processed: false },
+          11: { primary: "blue", ambient: "purple", transition: 1, processed: false }, 
+          12: { primary: "blue", ambient: "purple", transition: 0, processed: false },
+          13: { primary: "pink", ambient: "blue", transition: 0, processed: false },
+          14: { primary: "pink", ambient: "blue", transition: 0, processed: false },
+          15: { primary: "pink", ambient: "blue", transition: 1, processed: false }, 
+          16: { primary: "pink", ambient: "blue", transition: 0, processed: false },
+          17: { primary: "blue", ambient: "purple", transition: 0, processed: false },
+          18: { primary: "blue", ambient: "purple", transition: 0, processed: false },
+          19: { primary: "blue", ambient: "purple", transition: 0, processed: false }, 
+          20: { primary: "blue", ambient: "purple", transition: 1, processed: false },
+          21: { primary: "pink", ambient: "blue", transition: 0, processed: false }, 
+          22: { primary: "pink", ambient: "blue", transition: 0, processed: false },
+          23: { primary: "pink", ambient: "blue", transition: 0, processed: false },
+          24: { primary: "pink", ambient: "blue", transition: 0, processed: false },
+          25: { primary: "pink", ambient: "blue", transition: 1, processed: false }, 
+          26: { primary: "pink", ambient: "red", transition: 0, processed: false }, //  xenia wird sauer
+          27: { primary: "pink", ambient: "red", transition: 0, processed: false },
+          28: { primary: "pink", ambient: "red", transition: 1, processed: false },
+          29: { primary: "red", ambient: "red", transition: 0, processed: false }, 
+          30: { primary: "red", ambient: "red", transition: 0, processed: false },
+          31: { primary: "red", ambient: "blue", transition: 1, processed: false }, 
+          32: { primary: "red", ambient: "blue", transition: 0, processed: false },
+          33: { primary: "red", ambient: "orange", transition: 0, processed: false },
+          34: { primary: "red", ambient: "orange", transition: 0, processed: false },
+          35: { primary: "red", ambient: "orange", transition: 0, processed: false }, 
+          36: { primary: "red", ambient: "orange", transition: 1, processed: false }, // lage entspannt sich
+          37: { primary: "blue", ambient: "blue", transition: 0, processed: false },
+          38: { primary: "blue", ambient: "blue", transition: 0, processed: false },
+          39: { primary: "blue", ambient: "blue", transition: 1, processed: false }, //  OHA! Schneller übergang
+          40: { primary: "white", ambient: "orange", transition: 1, processed: false },
+          41: { primary: "orange", ambient: "white", transition: 1, processed: false }, 
+          42: { primary: "yellow", ambient: "orange", transition: 0, processed: false },
+          43: { primary: "orange", ambient: "yellow", transition: 1, processed: false }, // Schwummerig, wellen
+          44: { primary: "orange", ambient: "yellow", transition: 0, processed: false },
+          45: { primary: "orange", ambient: "yellow", transition: 0, processed: false }, 
+          46: { primary: "yellow", ambient: "orange", transition: 1, processed: false }, 
+          47: { primary: "white", ambient: "orange", transition: 1, processed: false },  // Türe klingelt
+          48: { primary: "yellow", ambient: "white", transition: 1, processed: false }, // Türe klingelt
+          49: { primary: "orange", ambient: "yellow", transition: 0, processed: false }, 
+          50: { primary: "orange", ambient: "yellow", transition: 0, processed: false },
+          51: { primary: "orange", ambient: "blue", transition: 1, processed: false }, //  Überfall!
+          52: { primary: "blue", ambient: "blue", transition: 0, processed: false },
+          53: { primary: "blue", ambient: "blue", transition: 0, processed: false }, // Schwummrig
+          54: { primary: "blue", ambient: "blue", transition: 0, processed: false },
+          55: { primary: "blue", ambient: "blue", transition: 0, processed: false }, 
+          56: { primary: "blue", ambient: "blue", transition: 0, processed: false },
+          57: { primary: "blue", ambient: "blue", transition: 0, processed: false },
+          58: { primary: "blue", ambient: "blue", transition: 0, processed: false },
+          59: { primary: "blue", ambient: "blue", transition: 0, processed: false }, 
+          60: { primary: "blue", ambient: "blue", transition: 0, processed: false },
+          61: { primary: "blue", ambient: "blue", transition: 0, processed: false },
+          62: { primary: "blue", ambient: "blue", transition: 0, processed: false },
+          63: { primary: "orange", ambient: "blue", transition: 0, processed: false },
+          64: { primary: "orange", ambient: "blue", transition: 0, processed: false }
+        }
+        
+        $("audio").get(0).play();
+        $("audio").on('timeupdate', function () {
+          var colorData = colors[this.currentTime.toFixed()];
+          var colorPrimary = colorData.primary;
+          var colorAmbient = colorData.ambient;
+          // var fadeToColor = colors[this.currentTime.toFixed() - 1].transition ? 1 : 0;
+          if(!colorData.processed) {
+            if(colors[this.currentTime.toFixed() - 1].transition == 1) {
+              console.log("fade!")
+              $(".primary").animate({ backgroundColor: colorPrimary }, 500);
+              $(".ambient").animate({ backgroundColor: colorAmbient }, 500);
+            } else {
+              console.log("hard!")
+              $(".primary").css({ backgroundColor: colorPrimary });
+              $(".ambient").css({ backgroundColor: colorAmbient });
+              
+            }
+            colorData.processed = true;
+            console.log('timeupdate', this.currentTime);
+          }
+        });
+        
+        $("audio").on('seeked', function () {
+          for(var k in colors) {
+            colors[k].processed = false;
+          }
+        });
+        
+      });
+    </script>
+    <style type="text/css" media="screen">
+      html, body {
+        background-color: black;
+        height: 100%;
+        margin: 0;
+        padding: 0;
+      }
+      
+      body {
+        background-color: black;
+      }
+      
+      audio {
+        position: absolute;
+        bottom: 0;
+        left: 0;
+        right: 0;
+      }
+      
+      .primary {
+        width: 50%;
+        height: 100%;
+        background-color: black;
+        float: left;
+      }
+      .ambient {
+        width: 50%;
+        height: 100%;
+        background-color: black;
+        float: left;
+      }
+      
+    </style>
+  </head>
+  <body>
+    <audio controls="controls" style="width: 100%">
+      <source src="xenia.mp3" />
+      
+    </audio>
+    
+    <div class="primary">
+    </div>
+    <div class="ambient">
+    </div>
+    
+  </body>
+</html>
