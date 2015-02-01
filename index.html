@@ -10,11 +10,11 @@
 
       var lights      = [];
       
-      // var primaryLight = 1;
-      // var ambientLight = 2;
+      var primaryLight = 1;
+      var ambientLight = 2;
       
-      var primaryLight = 7;
-      var ambientLight = 6;
+      // var primaryLight = 7;
+      // var ambientLight = 6;
       
       
       var colorCodes = {
@@ -132,6 +132,8 @@
 
       // onLoad
       $.getJSON("https://www.meethue.com/api/nupnp", function(data) {
+        console.log(data);
+        
         var internalIpAddress = data[0].internalipaddress;
         apiBaseUrl = "http://" + internalIpAddress + "/api/" + username;
         console.log("onLoad - api url: " + apiBaseUrl);
@@ -180,15 +182,15 @@
         var colors = {
           0000: { primary: { hue: 46920, bri: 000, sat: 255, fade: 10 }, ambient: { hue: 46920, bri: 000, sat: 255, fade: 10 }, processed: false }, // rot, blau
           0500: { primary: { hue: 46920, bri: 050, sat: 255, fade: 10 }, ambient: { hue: 46920, bri: 050, sat: 255, fade: 10 }, processed: false }, // rot, blau
-          1000: { primary: { hue: 46920, bri: 080, sat: 255, fade: 10 }, ambient: { hue: 46920, bri: 130, sat: 255, fade: 10 }, processed: false }, // rot, blau
+          1000: { primary: { hue: 46920, bri: 130, sat: 255, fade: 10 }, ambient: { hue: 46920, bri: 130, sat: 255, fade: 10 }, processed: false }, // rot, blau
           1500: { primary: { hue: 46920, bri: 020, sat: 255, fade: 10 }, ambient: { hue: 46920, bri: 020, sat: 255, fade: 10 }, processed: false }, // rot, blau
           2000: { primary: { hue: 46920, bri: 090, sat: 255, fade: 10 }, ambient: { hue: 46920, bri: 090, sat: 255, fade: 10 }, processed: false }, // rot, blau
           2500: { primary: { hue: 46920, bri: 030, sat: 255, fade: 10 }, ambient: { hue: 46920, bri: 030, sat: 255, fade: 10 }, processed: false }, // rot, blau
           3000: { primary: { hue: 46920, bri: 040, sat: 255, fade: 10 }, ambient: { hue: 46920, bri: 040, sat: 255, fade: 10 }, processed: false }, // rot, blau
           3500: { primary: { hue: 46920, bri: 010, sat: 255, fade: 10 }, ambient: { hue: 46920, bri: 010, sat: 255, fade: 10 }, processed: false }, // rot, blau
-          4000: { primary: { hue: 46920, bri: 040, sat: 255, fade: 10 }, ambient: { hue: 46920, bri: 130, sat: 255, fade: 10 }, processed: false }, // rot, blau
+          4000: { primary: { hue: 46920, bri: 130, sat: 255, fade: 10 }, ambient: { hue: 46920, bri: 130, sat: 255, fade: 10 }, processed: false }, // rot, blau
           4500: { primary: { hue: 46920, bri: 020, sat: 255, fade: 10 }, ambient: { hue: 46920, bri: 020, sat: 255, fade: 10 }, processed: false }, // rot, blau
-          5000: { primary: { hue: 46920, bri: 140, sat: 255, fade: 10 }, ambient: { hue: 46920, bri: 130, sat: 255, fade: 10 }, processed: false }, // rot, blau
+          5000: { primary: { hue: 46920, bri: 130, sat: 255, fade: 10 }, ambient: { hue: 46920, bri: 130, sat: 255, fade: 10 }, processed: false }, // rot, blau
           5500: { primary: { hue: 46920, bri: 020, sat: 255, fade: 10 }, ambient: { hue: 46920, bri: 020, sat: 255, fade: 10 }, processed: false }, // rot, blau
           6000: { primary: { hue: 46920, bri: 090, sat: 255, fade: 10 }, ambient: { hue: 46920, bri: 090, sat: 255, fade: 10 }, processed: false }, // rot, blau
           6500: { primary: { hue: 46920, bri: 030, sat: 255, fade: 10 }, ambient: { hue: 46920, bri: 030, sat: 255, fade: 10 }, processed: false }, // rot, blau
@@ -249,11 +251,11 @@
          29000: { primary: { hue: 25500, bri: 180, sat: 255, fade: 10 }, ambient: { hue: 56100, bri: 000, sat: 255, fade: 10 }, processed: false }, // 
          29500: { primary: { hue: 25500, bri: 255, sat: 255, fade: 10 }, ambient: { hue: 56100, bri: 000, sat: 255, fade: 10 }, processed: false }, // 
          30000: { primary: { hue: 25500, bri: 180, sat: 255, fade: 10 }, ambient: { hue: 56100, bri: 000, sat: 255, fade: 10 }, processed: false }, // 
-         30500: { primary: { hue: 25500, bri: 255, sat: 255, fade: 10 }, ambient: { hue: 56100, bri: 000, sat: 255, fade: 10 }, processed: false }, // 
-         31000: { primary: { hue: 25500, bri: 180, sat: 255, fade: 10 }, ambient: { hue: 56100, bri: 000, sat: 255, fade: 10 }, processed: false }, // 
-         31500: { primary: { hue: 25500, bri: 255, sat: 255, fade: 10 }, ambient: { hue: 56100, bri: 000, sat: 255, fade: 10 }, processed: false }, // 
-         32000: { primary: { hue: 25500, bri: 180, sat: 255, fade: 10 }, ambient: { hue: 56100, bri: 000, sat: 255, fade: 10 }, processed: false }, // 
-         32500: { primary: { hue: 25500, bri: 255, sat: 255, fade: 10 }, ambient: { hue: 56100, bri: 000, sat: 255, fade: 10 }, processed: false }, // 
+         30500: { primary: { hue: 25500, bri: 180, sat: 255, fade: 10 }, ambient: { hue: 56100, bri: 000, sat: 255, fade: 10 }, processed: false }, // 
+         31000: { primary: { hue: 25500, bri: 255, sat: 255, fade: 10 }, ambient: { hue: 56100, bri: 000, sat: 255, fade: 10 }, processed: false }, // 
+         31500: { primary: { hue: 25500, bri: 000, sat: 255, fade: 10 }, ambient: { hue: 56100, bri: 000, sat: 255, fade: 10 }, processed: false }, // 
+         32000: { primary: { hue: 25500, bri: 255, sat: 255, fade: 10 }, ambient: { hue: 56100, bri: 000, sat: 255, fade: 10 }, processed: false }, // 
+         32500: { primary: { hue: 25500, bri: 000, sat: 255, fade: 10 }, ambient: { hue: 56100, bri: 000, sat: 255, fade: 10 }, processed: false }, // 
          33000: { primary: { hue: 25500, bri: 180, sat: 255, fade: 10 }, ambient: { hue: 56100, bri: 000, sat: 255, fade: 10 }, processed: false }, // 
          33500: { primary: { hue: 25500, bri: 255, sat: 255, fade: 10 }, ambient: { hue: 56100, bri: 000, sat: 255, fade: 10 }, processed: false }, // 
          34000: { primary: { hue: 25500, bri: 180, sat: 255, fade: 10 }, ambient: { hue: 56100, bri: 000, sat: 255, fade: 10 }, processed: false }, // 
@@ -285,32 +287,63 @@
          48000: { primary: { hue: 25500, bri: 255, sat: 0, fade: 0, on: true }, ambient: { hue: 56100, bri: 255, sat: 0, fade: 0, on: true }, processed: false }, // 
          48500: { primary: { hue: 25500, bri: 050, sat: 0, fade: 0 }, ambient: { hue: 56100, bri: 050, sat: 0, fade: 0 }, processed: false }, // 
          
-         48750: { primary: { hue: 25500, bri: 255, sat: 255, fade: 0, on: true }, ambient: { hue: 00000, bri: 0, sat: 0, fade: 0, on: false }, processed: false }, // 
+         48750: { primary: { hue: 25500, bri: 255, sat: 255, fade: 0, on: true }, ambient: { hue: 00000, bri: 0, sat: 0, fade: 0, on: false }, processed: false }, // links spricht, "was vergessen?"
          
-         51000: { primary: { hue: 25500, bri: 255, sat: 255, fade: 0, on: true }, ambient: { hue: 00000, bri: 255, sat: 255, fade: 0, on: true }, processed: false }, // 
+         51000: { primary: { hue: 25500, bri: 255, sat: 255, fade: 0, on: true  }, ambient: { hue: 00000, bri: 255, sat: 255, fade: 0, on: true }, processed: false }, // überfall!
          51500: { primary: { hue: 00000, bri: 255, sat: 255, fade: 0, on: false }, ambient: { hue: 00000, bri: 255, sat: 255, fade: 0, on: false }, processed: false }, // 
-         52000: { primary: { hue: 00000, bri: 255, sat: 255, fade: 0, on: true }, ambient: { hue: 00000, bri: 255, sat: 255, fade: 0, on: true }, processed: false }, // 
+         52000: { primary: { hue: 00000, bri: 255, sat: 255, fade: 0, on: true  }, ambient: { hue: 00000, bri: 255, sat: 255, fade: 0, on: true }, processed: false }, // 
          52500: { primary: { hue: 00000, bri: 255, sat: 255, fade: 0, on: false }, ambient: { hue: 00000, bri: 255, sat: 255, fade: 0, on: false }, processed: false }, // 
          
-         53000: { primary: { hue: 00000, bri: 000, sat: 255, fade: 10, on: true }, ambient: { hue: 00000, bri: 000, sat: 255, fade: 10, on: true }, processed: false, on: true }, // rot, blau
-         53500: { primary: { hue: 00000, bri: 050, sat: 255, fade: 10 }, ambient: { hue: 00000, bri: 050, sat: 255, fade: 10 }, processed: false }, // rot, blau
-         54000: { primary: { hue: 00000, bri: 080, sat: 255, fade: 10 }, ambient: { hue: 00000, bri: 130, sat: 255, fade: 10 }, processed: false }, // rot, blau
-         54500: { primary: { hue: 00000, bri: 020, sat: 255, fade: 10 }, ambient: { hue: 00000, bri: 020, sat: 255, fade: 10 }, processed: false }, // rot, blau
-         55000: { primary: { hue: 00000, bri: 090, sat: 255, fade: 10 }, ambient: { hue: 00000, bri: 090, sat: 255, fade: 10 }, processed: false }, // rot, blau
-         55500: { primary: { hue: 25500, bri: 030, sat: 255, fade: 10 }, ambient: { hue: 00000, bri: 030, sat: 255, fade: 10 }, processed: false }, // rot, blau
-         56000: { primary: { hue: 25500, bri: 040, sat: 255, fade: 10 }, ambient: { hue: 00000, bri: 040, sat: 255, fade: 10 }, processed: false }, // rot, blau
+         53000: { primary: { hue: 00000, bri: 000, sat: 255, fade: 05, on: true }, ambient: { hue: 00000, bri: 000, sat: 255, fade: 05, on: true }, processed: false, on: true }, // 
+         53500: { primary: { hue: 00000, bri: 050, sat: 255, fade: 05, on: true }, ambient: { hue: 00000, bri: 255, sat: 255, fade: 05, on: true }, processed: false }, // 
+         54000: { primary: { hue: 00000, bri: 080, sat: 255, fade: 05, on: true }, ambient: { hue: 00000, bri: 255, sat: 255, fade: 05, on: true }, processed: false }, // 
+         54500: { primary: { hue: 00000, bri: 020, sat: 255, fade: 05, on: true }, ambient: { hue: 00000, bri: 055, sat: 255, fade: 05, on: true }, processed: false }, // 
+         55000: { primary: { hue: 00000, bri: 090, sat: 255, fade: 05, on: true }, ambient: { hue: 00000, bri: 255, sat: 255, fade: 05, on: true }, processed: false }, // 
+         55500: { primary: { hue: 25500, bri: 255, sat: 255, fade: 05, on: true }, ambient: { hue: 00000, bri: 055, sat: 255, fade: 05, on: true }, processed: false }, // links spricht: wer sind sie?!
+         56000: { primary: { hue: 25500, bri: 180, sat: 255, fade: 05, on: true }, ambient: { hue: 00000, bri: 055, sat: 255, fade: 05, on: true }, processed: false }, // 
          
-         57000: { primary: { hue: 00000, bri: 040, sat: 255, fade: 10 }, ambient: { hue: 00000, bri: 040, sat: 255, fade: 10 }, processed: false }, // rot, blau
+         57000: { primary: { hue: 00000, bri: 040, sat: 255, fade: 05 }, ambient: { hue: 00000, bri: 255, sat: 255, fade: 05 }, processed: false }, // überfall spricht - vincent martinez
+         57500: { primary: { hue: 00000, bri: 050, sat: 255, fade: 05 }, ambient: { hue: 00000, bri: 255, sat: 255, fade: 05 }, processed: false }, // 
+         58000: { primary: { hue: 00000, bri: 090, sat: 255, fade: 05 }, ambient: { hue: 00000, bri: 255, sat: 255, fade: 05 }, processed: false }, // 
+         58500: { primary: { hue: 00000, bri: 080, sat: 255, fade: 05 }, ambient: { hue: 00000, bri: 255, sat: 255, fade: 05 }, processed: false }, // 
          
-         59000: { primary: { hue: 25500, bri: 040, sat: 255, fade: 10 }, ambient: { hue: 00000, bri: 040, sat: 255, fade: 10 }, processed: false }, // rot, blau
+         59000: { primary: { hue: 25500, bri: 255, sat: 255, fade: 10 }, ambient: { hue: 00000, bri: 040, sat: 255, fade: 10 }, processed: false }, // 
          
-         60750: { primary: { hue: 00000, bri: 040, sat: 255, fade: 10 }, ambient: { hue: 00000, bri: 040, sat: 255, fade: 10 }, processed: false }, // rot, blau
+         60750: { primary: { hue: 00000, bri: 040, sat: 255, fade: 10 }, ambient: { hue: 00000, bri: 255, sat: 255, fade: 10 }, processed: false }, // rechts spricht wieder
          
+         64000: { primary: { hue: 25500, bri: 150, sat: 255, fade: 05 }, ambient: { hue: 00000, bri: 040, sat: 255, fade: 05 }, processed: false }, // links (ahhh...)
+         
+         
+         
+         64500: { primary: { hue: 00000, bri: 000, sat: 000, fade: 05, on: false }, ambient: { hue: 00000, bri: 000, sat: 000, fade: 05, on: false }, processed: false }, // hörspiel zuende, werbung anfang
+         65000: { primary: { hue: 00000, bri: 000, sat: 000, fade: 10, on: true }, ambient: { hue: 00000, bri: 000, sat: 000, fade: 10 }, processed: false, on: true }, // hörspiel zuende, werbung anfang
+         
+         69000: { primary: { hue: 00000, bri: 255, sat: 255, fade: 10 }, ambient: { hue: 00000, bri: 255, sat: 255, fade: 10 }, processed: false }, // jetzt die roten
+         
+         71000: { primary: { hue: 25500, bri: 255, sat: 255, fade: 10 }, ambient: { hue: 25500, bri: 255, sat: 255, fade: 10 }, processed: false }, // grünen
+         
+         73000: { primary: { hue: 46920, bri: 255, sat: 255, fade: 10 }, ambient: { hue: 46920, bri: 255, sat: 255, fade: 10 }, processed: false }, // schwarzen
+         73500: { primary: { hue: 46920, bri: 255, sat: 255, fade: 05 }, ambient: { hue: 46920, bri: 255, sat: 255, fade: 05 }, processed: false }, // 
+         74500: { primary: { hue: 46920, bri: 040, sat: 255, fade: 05 }, ambient: { hue: 46920, bri: 040, sat: 255, fade: 05 }, processed: false }, // 
+         
+         
+         
+         78500: { primary: { hue: 00000, bri: 255, sat: 255, fade: 5 }, ambient: { hue: 12750, bri: 255, sat: 255, fade: 5 }, processed: false }, // haribo farben
+         79000: { primary: { hue: 25500, bri: 255, sat: 255, fade: 5 }, ambient: { hue: 46920, bri: 255, sat: 255, fade: 5 }, processed: false }, // 
+         79500: { primary: { hue: 56100, bri: 255, sat: 255, fade: 5 }, ambient: { hue: 65280, bri: 255, sat: 255, fade: 5 }, processed: false }, // 
+         80000: { primary: { hue: 12750, bri: 255, sat: 255, fade: 5 }, ambient: { hue: 25500, bri: 255, sat: 255, fade: 5 }, processed: false }, // 
+         80500: { primary: { hue: 46920, bri: 255, sat: 255, fade: 5 }, ambient: { hue: 56100, bri: 255, sat: 255, fade: 5 }, processed: false }, // 
+         81000: { primary: { hue: 00000, bri: 255, sat: 255, fade: 5 }, ambient: { hue: 12750, bri: 255, sat: 255, fade: 5 }, processed: false }, // 
+         81500: { primary: { hue: 25500, bri: 255, sat: 255, fade: 5 }, ambient: { hue: 46920, bri: 255, sat: 255, fade: 5 }, processed: false }, // 
+         82000: { primary: { hue: 56100, bri: 255, sat: 255, fade: 5 }, ambient: { hue: 65280, bri: 255, sat: 255, fade: 5 }, processed: false }, // 
+         82500: { primary: { hue: 12750, bri: 255, sat: 255, fade: 5 }, ambient: { hue: 25500, bri: 255, sat: 255, fade: 5 }, processed: false }, // 
+         
+         83000: { primary: { hue: 46920, bri: 0, sat: 255, fade: 10, on: false }, ambient: { hue: 56100, bri: 0, sat: 255, fade: 10, on: false }, processed: false }, // fade out
         }
         
         $("audio").on('timeupdate', function () {
           var timeCode = (((this.currentTime * 1000)/250).toFixed() * 250);
-          // console.log(timeCode);
+          console.log(timeCode);
           var color = colors[timeCode];
           if(color) {
             if(!color.processed) {
@@ -388,7 +421,7 @@
   </head>
   <body>
     <audio controls="controls" style="width: 100%">
-      <source src="xenia.mp3" />
+      <source src="moodio_cc.mp3" />
       
     </audio>
     
