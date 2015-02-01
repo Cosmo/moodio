@@ -39,7 +39,7 @@
             "hue": 5000, // 0-65535
             "bri": 255, // The brightness value to set the light to. value: 0-255
             "sat": 255, // Saturation of the light. 0 (255) - 255 (colored)
-            "transitiontime": 0, // The duration of the transition from the light’s current state to the new state (10 == 1 sec)
+            "transitiontime": 5, // The duration of the transition from the light’s current state to the new state (10 == 1 sec)
             "effect": "none", // none, colorloop
             "alert": "none" // none, select (blinking), lselect (breath)
           }
@@ -50,7 +50,7 @@
             "hue": 46920, // 0-65535
             "bri": 255, // The brightness value to set the light to. value: 0-255
             "sat": 255, // Saturation of the light. 0 (255) - 255 (colored)
-            "transitiontime": 0, // The duration of the transition from the light’s current state to the new state (10 == 1 sec)
+            "transitiontime": 5, // The duration of the transition from the light’s current state to the new state (10 == 1 sec)
             "effect": "none", // none, colorloop
             "alert": "none" // none, select (blinking), lselect (breath)
           }
@@ -60,7 +60,7 @@
           lightState: {
             "bri": 255, // The brightness value to set the light to. value: 0-255
             "sat": 0, // Saturation of the light. 0 (255) - 255 (colored)
-            "transitiontime": 0, // The duration of the transition from the light’s current state to the new state (10 == 1 sec)
+            "transitiontime": 5, // The duration of the transition from the light’s current state to the new state (10 == 1 sec)
             "effect": "none", // none, colorloop
             "alert": "none" // none, select (blinking), lselect (breath)
           }
@@ -71,7 +71,7 @@
             "hue": 500,
             "bri": 255, // The brightness value to set the light to. value: 0-255
             "sat": 255, // Saturation of the light. 0 (255) - 255 (colored)
-            "transitiontime": 0, // The duration of the transition from the light’s current state to the new state (10 == 1 sec)
+            "transitiontime": 5, // The duration of the transition from the light’s current state to the new state (10 == 1 sec)
             "effect": "none", // none, colorloop
             "alert": "none" // none, select (blinking), lselect (breath)
           }
@@ -82,7 +82,7 @@
             "hue": 500,
             "bri": 0, // The brightness value to set the light to. value: 0-255
             "sat": 255, // Saturation of the light. 0 (255) - 255 (colored)
-            "transitiontime": 0, // The duration of the transition from the light’s current state to the new state (10 == 1 sec)
+            "transitiontime": 5, // The duration of the transition from the light’s current state to the new state (10 == 1 sec)
             "effect": "none", // none, colorloop
             "alert": "none" // none, select (blinking), lselect (breath)
           }
@@ -93,7 +93,7 @@
             "hue": 51920,
             "bri": 255, // The brightness value to set the light to. value: 0-255
             "sat": 255, // Saturation of the light. 0 (255) - 255 (colored)
-            "transitiontime": 0, // The duration of the transition from the light’s current state to the new state (10 == 1 sec)
+            "transitiontime": 5, // The duration of the transition from the light’s current state to the new state (10 == 1 sec)
             "effect": "none", // none, colorloop
             "alert": "none" // none, select (blinking), lselect (breath)
           }
@@ -104,7 +104,7 @@
             "hue": 56100,
             "bri": 255, // The brightness value to set the light to. value: 0-255
             "sat": 255, // Saturation of the light. 0 (255) - 255 (colored)
-            "transitiontime": 0, // The duration of the transition from the light’s current state to the new state (10 == 1 sec)
+            "transitiontime": 5, // The duration of the transition from the light’s current state to the new state (10 == 1 sec)
             "effect": "none", // none, colorloop
             "alert": "none" // none, select (blinking), lselect (breath)
           }
@@ -115,7 +115,7 @@
             "hue": 12750,
             "bri": 255, // The brightness value to set the light to. value: 0-255
             "sat": 255, // Saturation of the light. 0 (255) - 255 (colored)
-            "transitiontime": 0, // The duration of the transition from the light’s current state to the new state (10 == 1 sec)
+            "transitiontime": 5, // The duration of the transition from the light’s current state to the new state (10 == 1 sec)
             "effect": "none", // none, colorloop
             "alert": "none" // none, select (blinking), lselect (breath)
           }
@@ -130,7 +130,19 @@
         console.log("onLoad - api url: " + apiBaseUrl);
 
         getLights();
-        $("audio").get(0).play();
+        
+        setLightState(1, { on: false, hue: 46920, bri: 000, sat: 255, fade: 0 });
+        setLightState(2, { on: false, hue: 46920, bri: 000, sat: 255, fade: 0 });
+        
+        setTimeout(function(){
+          $("audio").get(0).play();
+        }, 1000) 
+        
+        setTimeout(function(){
+          setLightState(1, { on: true, hue: 46920, bri: 000, sat: 255, fade: 10 });
+          setLightState(2, { on: true, hue: 46920, bri: 000, sat: 255, fade: 10 });
+        }, 2000) 
+        
       });
 
       var getLights = function() {
@@ -141,7 +153,7 @@
 
       var setLightState = function(lightId, lightState) {
         var apiUrl = apiBaseUrl + "/lights/" + lightId + "/state";
-        console.log("setLightState - lightId: " + lightId + ", lightState: " + JSON.stringify(lightState) + ", apiUrl: " + apiUrl);
+        // console.log("setLightState - lightId: " + lightId + ", lightState: " + JSON.stringify(lightState) + ", apiUrl: " + apiUrl);
 
         $.ajax({
           url:  apiUrl,
@@ -155,95 +167,95 @@
     <script type="text/javascript" charset="utf-8">
       $(function() {
         var colors = {
-          0: { primary: "black", ambient: "black", hue: 0, bri: 0, sat: 0, transition: 1, processed: false },
-          1: { primary: "pink", ambient: "blue", transition: 0, processed: false }, //  Twinkel - niederschwellig
-          2: { primary: "pink", ambient: "blue", transition: 0, processed: false },
-          3: { primary: "pink", ambient: "blue", transition: 1, processed: false },
-          4: { primary: "blue", ambient: "purple", transition: 0, processed: false }, 
-          5: { primary: "blue", ambient: "purple", transition: 0, processed: false },
-          6: { primary: "blue", ambient: "purple", transition: 0, processed: false },
-          7: { primary: "pink", ambient: "blue",  transition: 1, processed: false },
-          8: { primary: "pink", ambient: "blue", transition: 0, processed: false }, 
-          9: { primary: "pink", ambient: "blue", transition: 0, processed: false },
-          10: { primary: "blue", ambient: "purple", transition: 0, processed: false },
-          11: { primary: "blue", ambient: "purple", transition: 1, processed: false }, 
-          12: { primary: "blue", ambient: "purple", transition: 0, processed: false },
-          13: { primary: "pink", ambient: "blue", transition: 0, processed: false },
-          14: { primary: "pink", ambient: "blue", transition: 0, processed: false },
-          15: { primary: "pink", ambient: "blue", transition: 1, processed: false }, 
-          16: { primary: "pink", ambient: "blue", transition: 0, processed: false },
-          17: { primary: "blue", ambient: "purple", transition: 0, processed: false },
-          18: { primary: "blue", ambient: "purple", transition: 0, processed: false },
-          19: { primary: "blue", ambient: "purple", transition: 0, processed: false }, 
-          20: { primary: "blue", ambient: "purple", transition: 1, processed: false },
-          21: { primary: "pink", ambient: "blue", transition: 0, processed: false }, 
-          22: { primary: "pink", ambient: "blue", transition: 0, processed: false },
-          23: { primary: "pink", ambient: "blue", transition: 0, processed: false },
-          24: { primary: "pink", ambient: "blue", transition: 0, processed: false },
-          25: { primary: "pink", ambient: "blue", transition: 1, processed: false }, 
-          26: { primary: "pink", ambient: "red", transition: 0, processed: false }, //  xenia wird sauer
-          27: { primary: "pink", ambient: "red", transition: 0, processed: false },
-          28: { primary: "pink", ambient: "red", transition: 1, processed: false },
-          29: { primary: "red", ambient: "red", transition: 0, processed: false }, 
-          30: { primary: "red", ambient: "red", transition: 0, processed: false },
-          31: { primary: "red", ambient: "blue", transition: 1, processed: false }, 
-          32: { primary: "red", ambient: "blue", transition: 0, processed: false },
-          33: { primary: "red", ambient: "orange", transition: 0, processed: false },
-          34: { primary: "red", ambient: "orange", transition: 0, processed: false },
-          35: { primary: "red", ambient: "orange", transition: 0, processed: false }, 
-          36: { primary: "red", ambient: "orange", transition: 1, processed: false }, // lage entspannt sich
-          37: { primary: "blue", ambient: "blue", transition: 0, processed: false },
-          38: { primary: "blue", ambient: "blue", transition: 0, processed: false },
-          39: { primary: "blue", ambient: "blue", transition: 1, processed: false }, //  OHA! Schneller übergang
-          40: { primary: "white", ambient: "orange", transition: 1, processed: false },
-          41: { primary: "orange", ambient: "white", transition: 1, processed: false }, 
-          42: { primary: "yellow", ambient: "orange", transition: 0, processed: false },
-          43: { primary: "orange", ambient: "yellow", transition: 1, processed: false }, // Schwummerig, wellen
-          44: { primary: "orange", ambient: "yellow", transition: 0, processed: false },
-          45: { primary: "orange", ambient: "yellow", transition: 0, processed: false }, 
-          46: { primary: "yellow", ambient: "orange", transition: 1, processed: false }, 
-          47: { primary: "white", ambient: "orange", transition: 1, processed: false },  // Türe klingelt
-          48: { primary: "yellow", ambient: "white", transition: 1, processed: false }, // Türe klingelt
-          49: { primary: "orange", ambient: "yellow", transition: 0, processed: false }, 
-          50: { primary: "orange", ambient: "yellow", transition: 0, processed: false },
-          51: { primary: "orange", ambient: "blue", transition: 1, processed: false }, //  Überfall!
-          52: { primary: "blue", ambient: "blue", transition: 0, processed: false },
-          53: { primary: "blue", ambient: "blue", transition: 0, processed: false }, // Schwummrig
-          54: { primary: "blue", ambient: "blue", transition: 0, processed: false },
-          55: { primary: "blue", ambient: "blue", transition: 0, processed: false }, 
-          56: { primary: "blue", ambient: "blue", transition: 0, processed: false },
-          57: { primary: "blue", ambient: "blue", transition: 0, processed: false },
-          58: { primary: "blue", ambient: "blue", transition: 0, processed: false },
-          59: { primary: "blue", ambient: "blue", transition: 0, processed: false }, 
-          60: { primary: "blue", ambient: "blue", transition: 0, processed: false },
-          61: { primary: "blue", ambient: "blue", transition: 0, processed: false },
-          62: { primary: "blue", ambient: "blue", transition: 0, processed: false },
-          63: { primary: "orange", ambient: "blue", transition: 0, processed: false },
-          64: { primary: "orange", ambient: "blue", transition: 0, processed: false }
+          0000: { primary: { hue: 46920, bri: 000, sat: 255, fade: 10 }, ambient: { hue: 46920, bri: 000, sat: 255, fade: 10 }, processed: false }, // rot, blau
+          0500: { primary: { hue: 46920, bri: 050, sat: 255, fade: 10 }, ambient: { hue: 46920, bri: 050, sat: 255, fade: 10 }, processed: false }, // rot, blau
+          1000: { primary: { hue: 46920, bri: 080, sat: 255, fade: 10 }, ambient: { hue: 46920, bri: 130, sat: 255, fade: 10 }, processed: false }, // rot, blau
+          1500: { primary: { hue: 46920, bri: 020, sat: 255, fade: 10 }, ambient: { hue: 46920, bri: 020, sat: 255, fade: 10 }, processed: false }, // rot, blau
+          2000: { primary: { hue: 46920, bri: 090, sat: 255, fade: 10 }, ambient: { hue: 46920, bri: 090, sat: 255, fade: 10 }, processed: false }, // rot, blau
+          2500: { primary: { hue: 46920, bri: 030, sat: 255, fade: 10 }, ambient: { hue: 46920, bri: 030, sat: 255, fade: 10 }, processed: false }, // rot, blau
+          3000: { primary: { hue: 46920, bri: 040, sat: 255, fade: 10 }, ambient: { hue: 46920, bri: 040, sat: 255, fade: 10 }, processed: false }, // rot, blau
+          3500: { primary: { hue: 46920, bri: 010, sat: 255, fade: 10 }, ambient: { hue: 46920, bri: 010, sat: 255, fade: 10 }, processed: false }, // rot, blau
+          4000: { primary: { hue: 46920, bri: 040, sat: 255, fade: 10 }, ambient: { hue: 46920, bri: 130, sat: 255, fade: 10 }, processed: false }, // rot, blau
+          4500: { primary: { hue: 46920, bri: 020, sat: 255, fade: 10 }, ambient: { hue: 46920, bri: 020, sat: 255, fade: 10 }, processed: false }, // rot, blau
+          5000: { primary: { hue: 46920, bri: 140, sat: 255, fade: 10 }, ambient: { hue: 46920, bri: 130, sat: 255, fade: 10 }, processed: false }, // rot, blau
+          5500: { primary: { hue: 46920, bri: 020, sat: 255, fade: 10 }, ambient: { hue: 46920, bri: 020, sat: 255, fade: 10 }, processed: false }, // rot, blau
+          6000: { primary: { hue: 46920, bri: 090, sat: 255, fade: 10 }, ambient: { hue: 46920, bri: 090, sat: 255, fade: 10 }, processed: false }, // rot, blau
+          6500: { primary: { hue: 46920, bri: 030, sat: 255, fade: 10 }, ambient: { hue: 46920, bri: 030, sat: 255, fade: 10 }, processed: false }, // rot, blau
+          7000: { primary: { hue: 46920, bri: 040, sat: 255, fade: 10 }, ambient: { hue: 46920, bri: 040, sat: 255, fade: 10 }, processed: false }, // rot, blau
+          
+          7500: { primary: { on: false }, ambient: { on: false }, processed: false }, // alles aus
+          7750: { primary: { on: true }, ambient: { on: false }, processed: false }, // links an und spricht, rechts ist aus
+          8000: { primary: { hue: 00000, bri: 180, sat: 255, fade: 10 }, ambient: { hue: 0, bri: 000, sat: 000, fade: 10 }, processed: false }, // rot, blau
+          8500: { primary: { hue: 00400, bri: 120, sat: 255, fade: 10 }, ambient: { hue: 0, bri: 000, sat: 000, fade: 10 }, processed: false }, // rot, blau
+          9000: { primary: { hue: 00000, bri: 190, sat: 255, fade: 10 }, ambient: { hue: 0, bri: 000, sat: 000, fade: 10 }, processed: false }, // rot, blau
+          9500: { primary: { hue: 00400, bri: 130, sat: 255, fade: 10 }, ambient: { hue: 0, bri: 000, sat: 000, fade: 10 }, processed: false }, // rot, blau
+         10000: { primary: { hue: 00000, bri: 140, sat: 255, fade: 10 }, ambient: { hue: 0, bri: 000, sat: 000, fade: 10 }, processed: false }, // rot, blau
+         10500: { primary: { hue: 00400, bri: 110, sat: 255, fade: 10 }, ambient: { hue: 0, bri: 000, sat: 000, fade: 10 }, processed: false }, // rot, blau
+         11000: { primary: { hue: 00000, bri: 255, sat: 255, fade: 10 }, ambient: { hue: 0, bri: 000, sat: 000, fade: 10 }, processed: false }, // rot, blau
+         11250: { primary: { hue: 00400, bri: 000, sat: 255, fade: 10 }, ambient: { hue: 0, bri: 000, sat: 000, fade: 10 }, processed: false }, // rot, blau
+         11500: { primary: { hue: 00400, bri: 255, sat: 255, fade: 10 }, ambient: { hue: 0, bri: 000, sat: 255, fade: 10 }, processed: false }, // rot, blau
+         11750: { primary: { hue: 00400, bri: 050, sat: 255, fade: 10 }, ambient: { hue: 0, bri: 000, sat: 255, fade: 10 }, processed: false }, // rot, blau
+         12000: { primary: { hue: 00000, bri: 000, sat: 255, fade: 10 }, ambient: { hue: 0, bri: 000, sat: 255, fade: 10 }, processed: false }, // rot, blau
+         
+         12250: { primary: { hue: 00000, bri: 000, sat: 255, fade: 10 }, ambient: { on: true, hue: 56100, bri: 180, sat: 255, fade: 10 }, processed: false }, // rechts spricht!
+         12500: { primary: { hue: 00400, bri: 000, sat: 255, fade: 10 }, ambient: { hue: 56100, bri: 180, sat: 255, fade: 10 }, processed: false }, // rot, blau
+         13000: { primary: { hue: 00400, bri: 000, sat: 255, fade: 10 }, ambient: { hue: 56100, bri: 120, sat: 255, fade: 10 }, processed: false }, // rot, blau
+         13500: { primary: { hue: 00000, bri: 000, sat: 255, fade: 10 }, ambient: { hue: 56100, bri: 190, sat: 255, fade: 10 }, processed: false }, // rot, blau
+         14000: { primary: { hue: 00400, bri: 000, sat: 255, fade: 10 }, ambient: { hue: 56100, bri: 130, sat: 255, fade: 10 }, processed: false }, // rot, blau
+         14500: { primary: { hue: 00000, bri: 000, sat: 255, fade: 10 }, ambient: { hue: 56100, bri: 140, sat: 255, fade: 10 }, processed: false }, // rot, blau
+         15000: { primary: { hue: 00400, bri: 000, sat: 255, fade: 10 }, ambient: { hue: 56100, bri: 110, sat: 255, fade: 10 }, processed: false }, // rot, blau
+         15500: { primary: { hue: 00000, bri: 000, sat: 255, fade: 10 }, ambient: { hue: 56100, bri: 180, sat: 255, fade: 10 }, processed: false }, // rot, blau
+         16000: { primary: { hue: 00400, bri: 000, sat: 255, fade: 10 }, ambient: { hue: 56100, bri: 120, sat: 255, fade: 10 }, processed: false }, // rot, blau
+         16500: { primary: { hue: 00000, bri: 000, sat: 255, fade: 10 }, ambient: { hue: 56100, bri: 190, sat: 255, fade: 10 }, processed: false }, // rot, blau
+         17000: { primary: { hue: 00400, bri: 000, sat: 255, fade: 10 }, ambient: { hue: 56100, bri: 130, sat: 255, fade: 10 }, processed: false }, // rot, blau
+         17500: { primary: { hue: 00000, bri: 000, sat: 255, fade: 10 }, ambient: { hue: 56100, bri: 140, sat: 255, fade: 10 }, processed: false }, // rot, blau
+         18000: { primary: { hue: 00400, bri: 180, sat: 255, fade: 10 }, ambient: { hue: 56100, bri: 000, sat: 255, fade: 10 }, processed: false }, // links spricht
+         18500: { primary: { hue: 00000, bri: 120, sat: 255, fade: 10 }, ambient: { hue: 56100, bri: 000, sat: 255, fade: 10 }, processed: false }, // 
+         19000: { primary: { hue: 00400, bri: 190, sat: 255, fade: 10 }, ambient: { hue: 56100, bri: 000, sat: 255, fade: 10 }, processed: false }, // 
+         19500: { primary: { hue: 00000, bri: 130, sat: 255, fade: 10 }, ambient: { hue: 56100, bri: 000, sat: 255, fade: 10 }, processed: false }, // 
+         20000: { primary: { hue: 00400, bri: 140, sat: 255, fade: 10 }, ambient: { hue: 56100, bri: 000, sat: 255, fade: 10 }, processed: false }, // 
+         
+         20500: { primary: { hue: 00000, bri: 000, sat: 255, fade: 10 }, ambient: { hue: 56100, bri: 190, sat: 255, fade: 10 }, processed: false }, // rechts
+         21000: { primary: { hue: 00400, bri: 000, sat: 255, fade: 10 }, ambient: { hue: 56100, bri: 130, sat: 255, fade: 10 }, processed: false }, // 
+         21500: { primary: { hue: 00000, bri: 000, sat: 255, fade: 10 }, ambient: { hue: 56100, bri: 140, sat: 255, fade: 10 }, processed: false }, // 
+         
+         
         }
         
         $("audio").on('timeupdate', function () {
-          var colorData = colors[this.currentTime.toFixed()];
-          var colorPrimary = colorData.primary;
-          var colorAmbient = colorData.ambient;
-          // var fadeToColor = colors[this.currentTime.toFixed() - 1].transition ? 1 : 0;
-          if(!colorData.processed) {
-            if(colors[this.currentTime.toFixed() - 1].transition == 1) {
-              console.log("fade!")
-              $(".primary").animate({ backgroundColor: colorPrimary }, 500);
-              $(".ambient").animate({ backgroundColor: colorAmbient }, 500);
-              setLightState(1, makeScene(hue, brightness, saturation, transitiontime));
-              setLightState(2, makeScene(hue, brightness, saturation, transitiontime));
-            } else {
-              console.log("hard!")
-              $(".primary").css({ backgroundColor: colorPrimary });
-              $(".ambient").css({ backgroundColor: colorAmbient });
-              setLightState(1, scenes[colorPrimary].lightState);
-              setLightState(2, scenes[colorAmbient].lightState);
+          var timeCode = (((this.currentTime * 1000)/250).toFixed() * 250);
+          console.log(timeCode);
+          var color = colors[timeCode];
+          if(color) {
+            if(!color.processed) {
+              setLightState(1, color.primary);
+              setLightState(2, color.ambient);
+              color.processed = true;
             }
-            colorData.processed = true;
-            console.log('timeupdate', this.currentTime);
           }
+          
+          // var colorData = colors[this.currentTime.toFixed() * 1000];
+          // if(colorData) {
+          //   if(!colorData.processed) {
+          //     
+          //     if( ) {
+          //       setLightState(1, colorData.primary);
+          //       setLightState(2, colorData.ambient);
+          //     }
+          //     
+          //     // if(colors[(this.currentTime.toFixed() - 1000)/1000] && colors[(this.currentTime.toFixed() - 1000)/1000].transition == 1) {
+          //     //   console.log("fade!")
+          //     //   setLightState(1, colorData.primary);
+          //     //   setLightState(2, colorData.ambient);
+          //     // } else {
+          //     //   console.log("hard!")
+          //     //   setLightState(1, colorData.primary);
+          //     //   setLightState(2, colorData.ambient);
+          //     // }
+          //     colorData.processed = true;
+          //     console.log('timeupdate', this.currentTime);
+          //   }
+          // }
         });
         
         $("audio").on('seeked', function () {
